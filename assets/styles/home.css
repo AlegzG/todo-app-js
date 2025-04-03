@@ -7,7 +7,6 @@
     justify-content: center;
     align-items: center;
 }
- 
 
 .home-container{
     width: 100%;
@@ -26,9 +25,8 @@
     padding: 30px;
     display: flex;
     flex-direction: column;
-    gap:  20px;
+    gap: 20px;
     
-
     span{
         display: block;
     }
@@ -39,12 +37,13 @@
 
     h5{
         font-size: 20px;
+        line-height: 26px;
     }
     
 }
 
 .form-container{
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     padding: 40px 50px;
     display: flex;
@@ -61,19 +60,5 @@
        border: 1px solid  rgba(0, 0, 0, 0.5);
        border-radius: 10px;
        padding: 10px 20px;
-    }
-
-    button{
-        background-color: rgba(0, 0, 0, 0.7);
-        border: transparent;
-        border-radius: 10px;
-        color: #fff;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-    button:hover{
-        background-color: black;
     }
 }
