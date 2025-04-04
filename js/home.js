@@ -12,11 +12,8 @@ loginForm.addEventListener('submit', function(event){
     const enteredPassword = inputPassword.value;
 
     if(enteredUsername === username && enteredPassword === password){
-        alert("Success!");
-
         window.location.href = "./pages/todo-page.html";
     }else{
         alert("Incorrect username or password.");
     }
-
 });
