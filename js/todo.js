@@ -59,8 +59,7 @@ function fillTodoTable(){
         updatedCell.textContent = data.updated;
 
         const actionsCell = document.createElement('td');
-        actionsCell.style.display = 'flex';
-        actionsCell.style.gap = '10px';
+        actionsCell.id = 'actions-cell';
 
         const editButton = document.createElement('button');
         editButton.textContent = 'Edit';
