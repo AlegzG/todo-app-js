@@ -131,8 +131,10 @@ function deleteTask(id){
 function addNewTask(title, description){
 
     let tasks =  getTasksFromLocalStorage();
-    let taskID = tasks.length + Math.random() * 10000000;
+    let taskID = tasks.length + Math.floor(Math.random() * 10000000) ;
+
     console.log(tasks.length);
+
     let timestamp = Date.now()
     let date = new Date(timestamp);
 
@@ -146,11 +148,12 @@ function addNewTask(title, description){
 
 
     let newTask = {
+
         id: taskID,
-        title: title,
+        title: title.value,
         description: description,
         created: dateString,
-        uprated: dateString
+        updated: dateString
     }
 
     tasks.push(newTask);
@@ -163,6 +166,7 @@ function handleSubmit(){
     let title = document.getElementById('task-title');
     let description = document.getElementById('task-description');
     console.log(title.value + description.value);
+    console.log(title.textContent);
 
     if(title && description){
         addNewTask(title, description);
