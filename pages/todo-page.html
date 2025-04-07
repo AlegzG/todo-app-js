@@ -24,7 +24,7 @@
                             <th>Title</th>
                             <th>Description</th>
                             <th>Created</th>
-                            <th>Last upßdate</th>
+                            <th>Last update</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -44,14 +44,8 @@
                 <div class="modal-content">
                     <h2>Create new task</h2>
                     <form id="modal-form">
-                        <div>
-                            <label for="task-title">Title:</label>
-                            <input id="task-title">
-                        </div>
-                        <div>
-                           <span><label for="task-description">Description:</label></span>
-                            <textarea id="task-description"></textarea>
-                        </div>
+                        <input id="task-title" placeholder="Title" required />
+                        <textarea id="task-description" placeholder="Description" required></textarea>
                         <div class="modal-btns">
                             <button id="modal-cancel-btn">Cancel</button>
                             <button id="modal-create-btn" type="submit">Create task</button>

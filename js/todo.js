@@ -3,15 +3,15 @@ const tasks = [
         id: 0,
         title: "Appoitment",
         description: "Make a doctors appoitment",
-        created: "03.03.2025.",
-        updated: "03.03.2025."
+        created: "03.03.2025 15:00",
+        updated: "03.03.2025 15:00"
     },
     {
         id: 1,
         title: "Return a book",
         description: "Return a book to a local library",
-        created: "02.03.2025.",
-        updated: "02.03.2025."
+        created: "02.03.2025 12:00",
+        updated: "02.03.2025 12:00"
     }
 ]
 
@@ -34,6 +34,8 @@ modalCancelBtn.addEventListener('click', function (){
     myModal.style.display = 'none';
     taskContainer.syle.display = 'flex';
 })
+
+modalCreateBtn.addEventListener('submit', handleSubmit());
 
 function saveTasksInLocalStorage(tasks) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -105,6 +107,11 @@ function fillTodoTable(){
 
 function editTask(id){
 
+    let tasks = getTasksFromLocalStorage();
+
+    let taskForEditing = tasks.filter( task => task.id === id);
+    // POSLE NASTAVI!!!!!
+
 }
 
 function deleteTask(id){
@@ -119,6 +126,51 @@ function deleteTask(id){
 
     saveTasksInLocalStorage(tasks);
     fillTodoTable();
+}
+
+function addNewTask(title, description){
+
+    let tasks =  getTasksFromLocalStorage();
+    let taskID = tasks.length + Math.random() * 10000000;
+    console.log(tasks.length);
+    let timestamp = Date.now()
+    let date = new Date(timestamp);
+
+    let day = String(date.getDate()).padStart(2,'0');
+    let month = String(date.getMonth() + 1).padStart(2,'0');
+    let year = date.getFullYear();
+    let hours = String(date.getHours()).padStart(2, '0'); 
+    let minutes = String(date.getMinutes()).padStart(2, '0'); 
+
+    let dateString = `${day}.${month}.${year} ${hours}:${minutes}`;
+
+
+    let newTask = {
+        id: taskID,
+        title: title,
+        description: description,
+        created: dateString,
+        uprated: dateString
+    }
+
+    tasks.push(newTask);
+    saveTasksInLocalStorage(tasks);
+    fillTodoTable();
+}
+
+function handleSubmit(){
+
+    let title = document.getElementById('task-title');
+    let description = document.getElementById('task-description');
+    console.log(title.value + description.value);
+
+    if(title && description){
+        addNewTask(title, description);
+        console.log(title + description);
+    
+    }else {
+        alert("Please, enter all required data");
+    }
 }
 
 window.onload = function(){
