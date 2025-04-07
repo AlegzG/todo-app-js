@@ -15,15 +15,22 @@ const tasks = [
     }
 ]
 
-const newTaskButton = document.getElementById('new-task');
+const newTaskBtn = document.getElementById('new-task-btn');
+const taskContainer = document.getElementById('task-container');
 
 const myModal = document.getElementById('modal');
-const modalBtn = document.getElementById('modal-btn');
+const modalCreateBtn = document.getElementById('modal-create-btn');
+const modalCancelBtn = document.getElementById('modal-cancel-btn');
+const modalForm = document.getElementById('modal-form');
 
-newTaskButton.addEventListener('click', function(event){
-    event.preventDefault();
+newTaskBtn.addEventListener('click', function (){
+    myModal.style.display = 'flex';
+    taskContainer.style.display = 'none';
+})
 
-    window.location.href = "./new-task.html";
+modalCancelBtn.addEventListener('click', function (){
+    myModal.style.display = 'none';
+    taskContainer.syle.display = 'flex';
 })
 
 function saveTasksInLocalStorage(tasks) {

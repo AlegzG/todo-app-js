@@ -12,17 +12,18 @@
     width: 100%;
     max-width: 1400px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap:20px;
     padding: 200px 100px;
 }
 
-.task-container{
+#task-container{
     background-color: rgba(255, 255, 255, 0.9);
     padding: 50px;
     display: flex;
     border-radius: 10px;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -85,13 +86,14 @@
 }
 
 #modal {
-    display: flex;
+    display: none;
     position: relative;
     z-index: 1;
     left: 0;
     top: 0;
-    background-color: rgba(0, 0. 0. 0.9);
     padding: 100px 100px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .modal-content {
@@ -102,6 +104,10 @@
     gap: 20px;
     width: 100%;
 
+    h2{
+        font-weight: 500;
+        text-transform: uppercase;
+    }
 
     form{
         display: flex;

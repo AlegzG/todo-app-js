@@ -16,7 +16,7 @@
 <body>
     <div class="todo">
         <div class="todo-container">
-            <div class="task-container">
+            <div id="task-container">
                 <h2>Tasks list</h2>
                 <table id="task-table">
                     <thead>
@@ -37,26 +37,26 @@
                         <input type="text" id="search"/>
                         <button id="filter-btn">Search</button>
                      </form>
-                     <button id="new-task">Add new task</button>
+                     <button id="new-task-btn">Add new task</button>
                 </div>
-                <div id="modal">
-                    <div class="modal-content">
-                        <h2>Create new task</h2>
-                        <form id="new-task-form">
-                            <div>
-                                <label for="task-title">Title:</label>
-                                <input id="task-title">
-                            </div>
-                            <div>
-                               <span><label for="">Description:</label></span>
-                                <textarea id="task-description"></textarea>
-                            </div>
-                            <div class="modal-btns">
-                                <button id="modal-cancel-btn">Cancel</button>
-                                <button id="modal-create-btn" type="submit">Create task</button>
-                            </div>
-                        </form>
-                    </div>
+            </div>
+            <div id="modal">
+                <div class="modal-content">
+                    <h2>Create new task</h2>
+                    <form id="modal-form">
+                        <div>
+                            <label for="task-title">Title:</label>
+                            <input id="task-title">
+                        </div>
+                        <div>
+                           <span><label for="">Description:</label></span>
+                            <textarea id="task-description"></textarea>
+                        </div>
+                        <div class="modal-btns">
+                            <button id="modal-cancel-btn">Cancel</button>
+                            <button id="modal-create-btn" type="submit">Create task</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
