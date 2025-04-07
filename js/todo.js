@@ -15,6 +15,8 @@ const tasks = [
     }
 ]
 
+saveTasksInLocalStorage(tasks);
+
 const newTaskBtn = document.getElementById('new-task-btn');
 const taskContainer = document.getElementById('task-container');
 
@@ -36,8 +38,6 @@ modalCancelBtn.addEventListener('click', function (){
 function saveTasksInLocalStorage(tasks) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
-
-saveTasksInLocalStorage(tasks);
 
 function getTasksFromLocalStorage(){
     const localTasks = localStorage.getItem('tasks');
@@ -108,7 +108,17 @@ function editTask(id){
 }
 
 function deleteTask(id){
-    
+
+    let tasks = getTasksFromLocalStorage();
+
+    if(tasks){
+        tasks = tasks.filter( task => task.id !== id);
+    }else{
+        alert("There are no tasks to delete!");
+    } 
+
+    saveTasksInLocalStorage(tasks);
+    fillTodoTable();
 }
 
 window.onload = function(){
