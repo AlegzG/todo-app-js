@@ -15,6 +15,17 @@ const tasks = [
     }
 ]
 
+const newTaskButton = document.getElementById('new-task');
+
+const myModal = document.getElementById('modal');
+const modalBtn = document.getElementById('modal-btn');
+
+newTaskButton.addEventListener('click', function(event){
+    event.preventDefault();
+
+    window.location.href = "./new-task.html";
+})
+
 function saveTasksInLocalStorage(tasks) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
@@ -96,3 +107,4 @@ function deleteTask(id){
 window.onload = function(){
     fillTodoTable();
 }
+

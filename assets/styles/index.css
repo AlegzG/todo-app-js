@@ -1,5 +1,6 @@
 @import url("./home.css");
 @import url("./todo-page.css");
+@import url('./new-task.css');
 
 *{
     margin: 0;
@@ -20,7 +21,7 @@ input{
 }
 
 button{
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(6, 64, 43, 0.7);
     border: transparent;
     border-radius: 10px;
     color: #fff;
@@ -28,10 +29,11 @@ button{
     font-size: 16px;
     cursor: pointer;
     font-family: "Raleway";
+    vertical-align: middle;
 }
 
 button:hover{
-    background-color: black;
+    background-color: rgba(6, 64, 43, 0.9);
 }
 
 input{
