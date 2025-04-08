@@ -1,4 +1,4 @@
-const tasks = [
+const myTasks = [
     {
         id: 0,
         title: "Appoitment",
@@ -15,7 +15,9 @@ const tasks = [
     }
 ]
 
-saveTasksInLocalStorage(tasks);
+if(localStorage.getItem('tasks' ===null)){
+    saveTasksInLocalStorage(mytasks);
+}
 
 const newTaskBtn = document.getElementById('new-task-btn');
 const taskContainer = document.getElementById('task-container');
@@ -36,7 +38,7 @@ modalCancelBtn.addEventListener('click', function (){
 })
 
 modalCreateBtn.addEventListener('click', function (event){
-    event.preventDefault;
+    event.preventDefault();
     handleSubmit(event);
 
     myModal.style.display = 'none'; 
@@ -45,6 +47,8 @@ modalCreateBtn.addEventListener('click', function (event){
 
 function saveTasksInLocalStorage(tasks) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    let tasksd = getTasksFromLocalStorage();
+    console.log("Ucitani: ", tasksd);
 }
 
 function getTasksFromLocalStorage(){
@@ -60,6 +64,7 @@ function getTasksFromLocalStorage(){
 function fillTodoTable(){
 
     const tableData = getTasksFromLocalStorage();
+    console.log("Dobijeni podaci: ", tableData);
     const tableBody = document.getElementById("task-list");
 
     tableBody.innerHTML = '';
@@ -136,12 +141,8 @@ function deleteTask(id){
 
 function addNewTask(title, description){
 
-    console.log("dodavanje taska: " +title+" "+description);
-
     let tasks =  getTasksFromLocalStorage();
     let taskID = tasks.length + Math.floor(Math.random() * 10000000) ;
-
-    console.log(tasks.length);
 
     let timestamp = Date.now()
     let date = new Date(timestamp);
@@ -153,7 +154,6 @@ function addNewTask(title, description){
     let minutes = String(date.getMinutes()).padStart(2, '0'); 
 
     let dateString = `${day}.${month}.${year} ${hours}:${minutes}`;
-
 
     let newTask = {
 
