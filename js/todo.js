@@ -35,7 +35,13 @@ modalCancelBtn.addEventListener('click', function (){
     taskContainer.syle.display = 'flex';
 })
 
-modalCreateBtn.addEventListener('submit', handleSubmit());
+modalCreateBtn.addEventListener('click', function (event){
+    event.preventDefault;
+    handleSubmit(event);
+
+    myModal.style.display = 'none'; 
+    taskContainer.style.display = 'flex';
+});
 
 function saveTasksInLocalStorage(tasks) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -130,6 +136,8 @@ function deleteTask(id){
 
 function addNewTask(title, description){
 
+    console.log("dodavanje taska: " +title+" "+description);
+
     let tasks =  getTasksFromLocalStorage();
     let taskID = tasks.length + Math.floor(Math.random() * 10000000) ;
 
@@ -150,7 +158,7 @@ function addNewTask(title, description){
     let newTask = {
 
         id: taskID,
-        title: title.value,
+        title: title,
         description: description,
         created: dateString,
         updated: dateString
@@ -161,17 +169,14 @@ function addNewTask(title, description){
     fillTodoTable();
 }
 
-function handleSubmit(){
+function handleSubmit(event){
+    event.preventDefault();
 
     let title = document.getElementById('task-title');
     let description = document.getElementById('task-description');
-    console.log(title.value + description.value);
-    console.log(title.textContent);
 
-    if(title && description){
-        addNewTask(title, description);
-        console.log(title + description);
-    
+    if(title.value && description.value){
+        addNewTask(title.value.trim(), description.value.trim());
     }else {
         alert("Please, enter all required data");
     }
