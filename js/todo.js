@@ -15,9 +15,11 @@ const myTasks = [
     }
 ]
 
-if(localStorage.getItem('tasks') === null){
+if(!localStorage.getItem('tasks')){
     saveTasksInLocalStorage(myTasks); //zasto ne radi?
 }
+
+const tableBody = document.getElementById("task-list");
 
 const newTaskBtn = document.getElementById('new-task-btn');
 const taskContainer = document.getElementById('task-container');
@@ -29,6 +31,16 @@ const editBtn = document.getElementById('modal-edit-btn');
 const cancelEditBtn = document.getElementById('edit-cancel-btn');
 const editModal = document.getElementById('edit-modal');
 
+const searchInput = document.getElementById('search');
+const searchBtn = document.getElementById('filter-btn');
+
+searchBtn.addEventListener('click', function(event){
+    event.preventDefault();
+    const searchTerm = searchInput.value.trim();
+    console.log(searchTerm);
+    filterTasks(searchTerm);
+})
+
 newTaskBtn.addEventListener('click', function (){
     myModal.style.display = 'flex';
     taskContainer.style.display = 'none';
@@ -38,10 +50,6 @@ modalCancelBtn.addEventListener('click', function (){
     myModal.style.display = 'none';
     taskContainer.syle.display = 'flex';
 })
-
-editBtn.addEventListener('click', function(){
-   
-});
 
 cancelEditBtn.addEventListener('click', function(){
     editModal.style.display = 'none';
@@ -76,7 +84,6 @@ function fillTodoTable(){
 
     const tableData = getTasksFromLocalStorage();
     console.log("Dobijeni podaci: ", tableData);
-    const tableBody = document.getElementById("task-list");
 
     tableBody.innerHTML = '';
 
@@ -127,6 +134,76 @@ function fillTodoTable(){
     });
 }
 
+function filterTasks(searchTerm){
+    let data = getTasksFromLocalStorage();
+
+    if(!searchTerm){
+        fillTodoTable();
+        return;
+    }
+
+    let filteredTasks = []; 
+
+    data.forEach(task => {
+        if (task.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            task.description.toLowerCase().includes(searchTerm.toLowerCase())) {
+            filteredTasks.push(task); 
+        }
+    });
+
+    console.log(filteredTasks);
+    fillFilteredTable(filteredTasks);
+}
+
+function fillFilteredTable(filteredTasks){
+    tableBody.innerHTML = '';
+
+    filteredTasks.forEach( task => {
+
+        const row = document.createElement('tr');
+
+        const idCell = document.createElement('td');
+        idCell.textContent = task.id;
+        idCell.style.display = 'none';
+
+        const titleCell = document.createElement('td');
+        titleCell.textContent = task.title;
+
+        const descriptCell = document.createElement('td');
+        descriptCell.textContent = task.description;
+
+        const createdCell = document.createElement('td');
+        createdCell.textContent = task.created;
+
+        const updatedCell = document.createElement('td');
+        updatedCell.textContent = task.updated;
+
+        const actionsCell = document.createElement('td');
+        actionsCell.id = 'actions-cell';
+
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.addEventListener('click', () => editTask(task.id));
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => deleteTask(task.id));
+
+        actionsCell.appendChild(editButton);
+        actionsCell.appendChild(deleteButton);
+
+        row.appendChild(idCell);
+        row.appendChild(titleCell);
+        row.appendChild(descriptCell);
+        row.appendChild(createdCell);
+        row.appendChild(updatedCell);
+        row.appendChild(actionsCell);
+
+        tableBody.appendChild(row);
+    
+    });
+}
+
 function editTask(id){
     let tasks = getTasksFromLocalStorage();
     let taskForEditing = tasks.find( task => task.id === id);
@@ -154,7 +231,7 @@ function editTask(id){
             editModal.style.display = 'none';
             taskContainer.style.dispslay = 'flex';
             fillTodoTable();
-            location.reload();
+            location.reload();// zasto ne radi bez ovog?
         }
     }
 }
