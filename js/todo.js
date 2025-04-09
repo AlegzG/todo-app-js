@@ -158,8 +158,7 @@ function filterTasks(searchTerm){
     let filteredTasks = []; 
 
     data.forEach(task => {
-        if (task.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-            task.description.toLowerCase().includes(searchTerm.toLowerCase())) {
+        if (task.title.toLowerCase().includes(searchTerm.toLowerCase())) {
             filteredTasks.push(task); 
         }
     });
