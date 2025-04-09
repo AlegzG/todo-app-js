@@ -15,8 +15,8 @@ const myTasks = [
     }
 ]
 
-if(localStorage.getItem('tasks' ===null)){
-    saveTasksInLocalStorage(mytasks);
+if(localStorage.getItem('tasks') === null){
+    saveTasksInLocalStorage(myTasks); //zasto ne radi?
 }
 
 const newTaskBtn = document.getElementById('new-task-btn');
@@ -25,7 +25,9 @@ const taskContainer = document.getElementById('task-container');
 const myModal = document.getElementById('modal');
 const modalCreateBtn = document.getElementById('modal-create-btn');
 const modalCancelBtn = document.getElementById('modal-cancel-btn');
-const modalForm = document.getElementById('modal-form');
+const editBtn = document.getElementById('modal-edit-btn');
+const cancelEditBtn = document.getElementById('edit-cancel-btn');
+const editModal = document.getElementById('edit-modal');
 
 newTaskBtn.addEventListener('click', function (){
     myModal.style.display = 'flex';
@@ -35,6 +37,15 @@ newTaskBtn.addEventListener('click', function (){
 modalCancelBtn.addEventListener('click', function (){
     myModal.style.display = 'none';
     taskContainer.syle.display = 'flex';
+})
+
+editBtn.addEventListener('click', function(){
+   
+});
+
+cancelEditBtn.addEventListener('click', function(){
+    editModal.style.display = 'none';
+    taskContainer.style.display = 'flex';
 })
 
 modalCreateBtn.addEventListener('click', function (event){
@@ -117,12 +128,35 @@ function fillTodoTable(){
 }
 
 function editTask(id){
-
     let tasks = getTasksFromLocalStorage();
+    let taskForEditing = tasks.find( task => task.id === id);
+    console.log(taskForEditing);
 
-    let taskForEditing = tasks.filter( task => task.id === id);
-    // POSLE NASTAVI!!!!!
+    if(taskForEditing){
+        editModal.style.display = 'flex';
+        taskContainer.style.display = 'none';
 
+        document.getElementById('edit-title').value = taskForEditing.title;
+        document.getElementById('edit-description').value = taskForEditing.description;
+
+        document.getElementById('modal-edit-btn').onclick = function (){
+
+            taskForEditing.title = document.getElementById('edit-title').value;
+            taskForEditing.description = document.getElementById('edit-description').value;
+            let timestamp = Date.now()
+            let date = new Date(timestamp);
+            let dateFormated = formatDate(date);
+            taskForEditing.updated = dateFormated;
+            console.log(dateFormated); //zasto ne radi?
+
+            saveTasksInLocalStorage(tasks);
+            
+            editModal.style.display = 'none';
+            taskContainer.style.dispslay = 'flex';
+            fillTodoTable();
+            location.reload();
+        }
+    }
 }
 
 function deleteTask(id){
@@ -146,22 +180,15 @@ function addNewTask(title, description){
 
     let timestamp = Date.now()
     let date = new Date(timestamp);
-
-    let day = String(date.getDate()).padStart(2,'0');
-    let month = String(date.getMonth() + 1).padStart(2,'0');
-    let year = date.getFullYear();
-    let hours = String(date.getHours()).padStart(2, '0'); 
-    let minutes = String(date.getMinutes()).padStart(2, '0'); 
-
-    let dateString = `${day}.${month}.${year} ${hours}:${minutes}`;
+    let dateFormated = formatDate(date);
 
     let newTask = {
 
         id: taskID,
         title: title,
         description: description,
-        created: dateString,
-        updated: dateString
+        created: dateFormated,
+        updated: dateFormated
     }
 
     tasks.push(newTask);
@@ -180,6 +207,18 @@ function handleSubmit(event){
     }else {
         alert("Please, enter all required data");
     }
+}
+
+function formatDate(date){
+
+    let day = String(date.getDate()).padStart(2,'0');
+    let month = String(date.getMonth() + 1).padStart(2,'0');
+    let year = date.getFullYear();
+    let hours = String(date.getHours()).padStart(2, '0'); 
+    let minutes = String(date.getMinutes()).padStart(2, '0'); 
+
+    let dateString = `${day}.${month}.${year} ${hours}:${minutes}`;
+    return dateString;
 }
 
 window.onload = function(){
