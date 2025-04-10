@@ -27,15 +27,12 @@ const editModal = document.getElementById('edit-modal');
 const searchInput = document.getElementById('search');
 const searchBtn = document.getElementById('filter-btn');
 
-window.onload = function(){
-    fillTodoTable();
-}
 
 //Setting and getting data
 function saveTasksInLocalStorage(tasks) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     let tasksd = getTasksFromLocalStorage();
-    console.log("Ucitani: ", tasksd);
+    console.log("Ucitani: ", tasksd); 
 }
 
 function getTasksFromLocalStorage(){
@@ -44,11 +41,20 @@ function getTasksFromLocalStorage(){
     if(localTasks){
         return JSON.parse(localTasks);
     } else {
+        console.log("No data.");
         return [];
     }
 }
+
 if(localStorage.getItem('tasks') === null){
     saveTasksInLocalStorage(myTasks); //zasto ne radi?
+} 
+
+window.onload = function(){
+    if(localStorage.getItem('tasks') === null || localStorage.getItem('tasks')?.length === 0){
+        saveTasksInLocalStorage(myTasks); //zasto ne radi?
+    }
+    fillTodoTable();
 }
 
 //CRUD + CRUD helpers
@@ -177,11 +183,10 @@ function fillFilteredTable(filteredTasks){
 function fillTodoTable(){
 
     const tableData = getTasksFromLocalStorage();
-    console.log("Dobijeni podaci: ", tableData);
-
     tableBody.innerHTML = '';
 
     createTable(tableData);
+
 }
 
 function createTable(tasks){
@@ -236,7 +241,6 @@ function createTable(tasks){
 searchBtn.addEventListener('click', function(event){
     event.preventDefault();
     const searchTerm = searchInput.value.trim();
-    console.log(searchTerm);
     filterTasks(searchTerm);
 })
 
